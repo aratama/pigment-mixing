@@ -15,6 +15,14 @@ function hexToRgb(hex: string): RGB {
   return [r, g, b];
 }
 
+function rgbMix(a: RGB, b: RGB, t: number): RGB {
+  return [
+    Math.floor(a[0] * (1 - t) + b[0] * t),
+    Math.floor(a[1] * (1 - t) + b[1] * t),
+    Math.floor(a[2] * (1 - t) + b[2] * t),
+  ];
+}
+
 const App = () => {
   const [color1, setColor1] = useState("#000060"); // deep blue
   const [color2, setColor2] = useState("#fcd300"); // bright yellow
@@ -29,30 +37,55 @@ const App = () => {
     go();
   }, []);
 
-  return (
+  return c_table ? (
     <div style={{ display: "flex" }}>
       <div>
-        {c_table
-          ? new Array(10).fill(0).map((_, i) => {
-              const c1 = hexToRgb(color1);
-              const c2 = hexToRgb(color2);
-              const mixed = rgbToHex(mixbox_lerp_srgb8(c_table, c1, c2, 0.1 * i));
-              return (
-                <div
-                  key={i}
-                  style={{
-                    width: "400px",
-                    height: "60px",
-                    backgroundColor: mixed,
-                    textShadow: "0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white",
-                    lineHeight: "60px",
-                  }}
-                >
-                  {mixed}
-                </div>
-              );
-            })
-          : ""}
+        <h2>RGB</h2>
+        <div>
+          {new Array(10).fill(0).map((_, i) => {
+            const c1 = hexToRgb(color1);
+            const c2 = hexToRgb(color2);
+            const mixed = rgbToHex(rgbMix(c1, c2, 0.1 * i));
+            return (
+              <div
+                key={i}
+                style={{
+                  width: "200px",
+                  height: "60px",
+                  backgroundColor: mixed,
+                  textShadow: "0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white",
+                  lineHeight: "60px",
+                }}
+              >
+                {mixed}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div>
+        <h2>MixBox</h2>
+        <div>
+          {new Array(10).fill(0).map((_, i) => {
+            const c1 = hexToRgb(color1);
+            const c2 = hexToRgb(color2);
+            const mixed = rgbToHex(mixbox_lerp_srgb8(c_table, c1, c2, 0.1 * i));
+            return (
+              <div
+                key={i}
+                style={{
+                  width: "200px",
+                  height: "60px",
+                  backgroundColor: mixed,
+                  textShadow: "0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white",
+                  lineHeight: "60px",
+                }}
+              >
+                {mixed}
+              </div>
+            );
+          })}
+        </div>
       </div>
       <div
         style={{
@@ -73,6 +106,8 @@ const App = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <p>Loading</p>
   );
 };
 
