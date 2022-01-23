@@ -1,36 +1,25 @@
 {
-  "name": "pigment-mixing",
-  "version": "1.0.0",
-  "description": "<p align=\"center\">\r   <img src=\"https://scrtwpns.com/mixbox/teaser.jpg\"/>\r </p>",
-  "main": "index.js",
+  "name": "mixbox-js",
+  "version": "0.0.0",
   "scripts": {
     "test": "jest",
-    "build": "esbuild --bundle src/index.tsx --outfile=public/index.js",
-    "dev": "esbuild --bundle src/index.tsx --outfile=public/index.js --servedir=public"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aratama/pigment-mixing.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/aratama/pigment-mixing/issues"
-  },
-  "homepage": "https://github.com/aratama/pigment-mixing#readme",
   "dependencies": {
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
     "canvas": "^2.9.0",
-    "esbuild": "^0.14.13",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.5"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "@vitejs/plugin-react": "^1.0.7",
     "jest": "^27.4.7",
-    "ts-jest": "^27.1.3"
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.4.4",
+    "vite": "^2.7.2"
   }
 }

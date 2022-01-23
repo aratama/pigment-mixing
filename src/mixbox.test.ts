@@ -1,5 +1,5 @@
 import "jest";
-import CANVAS from "canvas";
+import * as CANVAS from "canvas";
 
 import { mixbox_lerp_srgb8, mixbox_init_t, RGB, mixbox_srgb8_to_latent } from "./mixbox";
 
