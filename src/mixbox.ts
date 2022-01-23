@@ -86,28 +86,14 @@ export function mixbox_lerp_srgb8(c_table: Uint8Array, rgb1: RGB, rgb2: RGB, t: 
 export function mixbox_srgb8_to_latent(c_table: Uint8Array, [r, g, b]: RGB): Latent {
   const offset = (r + g * 257 + b * 257 * 257) * 3;
 
-  // console.log("offset", offset);
-
   const c = [0, 0, 0, 0];
   c[0] = c_table[offset + 0] / 255.0;
   c[1] = c_table[offset + 1] / 255.0;
   c[2] = c_table[offset + 2] / 255.0;
   c[3] = 1.0 - (c[0] + c[1] + c[2]);
 
-  // console.log("c_table[offset + 0]", c_table[offset + 0]);
-  // console.log("c_table[offset + 0] / 255.0", c_table[offset + 0] / 255.0);
-
-  // console.log("c[0]", c[0]);
-  // console.log("c[1]", c[1]);
-  // console.log("c[2]", c[2]);
-  // console.log("c[3]", c[3]);
-
   const mixrgb: RGB = [0, 0, 0];
   mix(c, mixrgb);
-
-  // console.log("mixrgb[0]", mixrgb[0]);
-  // console.log("mixrgb[1]", mixrgb[1]);
-  // console.log("mixrgb[2]", mixrgb[2]);
 
   return [c[0], c[1], c[2], c[3], r / 255.0 - mixrgb[0], g / 255.0 - mixrgb[1], b / 255.0 - mixrgb[2]];
 }
@@ -167,11 +153,6 @@ export async function mixbox_init_t(imageData: ImageData): Promise<Uint8Array> {
         // for (let i = 0; i < 3; i++) {
         //   c_table[(r + g * 257 + b * 257 * 257) * 3 + i] = imageDataArray[(x + y * 256 * 16) * 3 + i];
         // }
-
-        // if (b == 0 && g == 0 && r == 0) {
-        //   console.log("imageDataArray[(x + y * 256 * 16) * 4 + 0]", imageDataArray[(x + y * 256 * 16) * 4 + 0]);
-        // }
-
         for (let i = 0; i < 3; i++) {
           c_table[(r + g * 257 + b * 257 * 257) * 3 + i] = imageDataArray[(x + y * 256 * 16) * 4 + i];
         }
