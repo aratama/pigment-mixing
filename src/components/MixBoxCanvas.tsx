@@ -15,6 +15,7 @@ export function MixBoxCanvas(props: {
   const [g, setG] = useState<CanvasRenderingContext2D | undefined>(undefined);
 
   const [opacity, setOpacity] = useState(0.03);
+  const [penSize, setPenSize] = useState(25);
   const [mouseDown, setMouseDown] = useState(false);
 
   const [px, setPx] = useState<number>(0);
@@ -60,15 +61,13 @@ export function MixBoxCanvas(props: {
   }
 
   function drawStroke(g: CanvasRenderingContext2D, px: number, py: number, cx: number, cy: number) {
-    const s = 25;
-
     const d = Math.sqrt(Math.pow(cx - px, 2) + Math.pow(cy - py, 2));
 
     const vx = (cx - px) / d;
     const vy = (cy - py) / d;
 
     for (let i = 0; i < d; i += 3) {
-      drawCircle(g, cx - vx * i, cy - vy * i, s);
+      drawCircle(g, cx - vx * i, cy - vy * i, penSize);
     }
   }
 
@@ -107,7 +106,7 @@ export function MixBoxCanvas(props: {
   }
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <canvas
         width="800"
         height="600"
@@ -116,6 +115,19 @@ export function MixBoxCanvas(props: {
         onMouseUp={onMouseUp}
         onMouseMove={onMouseMove}
       ></canvas>
+      <div
+        style={{
+          border: "solid 1px black",
+          width: (penSize * 2).toFixed(2) + "px",
+          height: (penSize * 2).toFixed(2) + "10px",
+          top: (py - penSize).toFixed(2) + "px",
+          left: (px - penSize).toFixed(2) + "px",
+          position: "absolute",
+          borderRadius: "50%",
+          pointerEvents: "none",
+          opacity: "0.5",
+        }}
+      ></div>
     </div>
   );
 }
