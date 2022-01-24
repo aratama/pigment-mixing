@@ -2,17 +2,6 @@
 
 This is a JavaScript porting of [pigment-mixing](https://github.com/scrtwpns/pigment-mixing).
 
-# Note
-
-
-To build C++ version on Windows:
-
-
-```
-$ cl mixbox.cpp /link /SUBSYSTEM:CONSOLE
-```
-
-
 ## Original License
 
 Copyright (c) 2021, Secret Weapons. All rights reserved.<br>

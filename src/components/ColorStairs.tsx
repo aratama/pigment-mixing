@@ -3,10 +3,9 @@ import { hexToRgb, rgbMix, rgbToHex } from "../color";
 
 import { RGB, mixbox_init_t, mixbox_lerp_srgb8, loadImageData } from "../mixbox";
 
-export function ColorStairs(props: { c_table: Uint8Array }) {
-  const { c_table } = props;
+export function ColorStairs(props: { c_table: Uint8Array; color1: string; setColor1: (color1: string) => unknown }) {
+  const { c_table, color1, setColor1 } = props;
 
-  const [color1, setColor1] = useState("#000060"); // deep blue
   const [color2, setColor2] = useState("#fcd300"); // bright yellow
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -26,60 +25,62 @@ export function ColorStairs(props: { c_table: Uint8Array }) {
   }, []);
 
   return (
-    <div style={{ display: "flex" }}>
-      <div>
-        <h2>RGB</h2>
+    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+      <div style={{ display: "flex" }}>
+        {/* <div>
+          <h2>RGB</h2>
+          <div>
+            {new Array(10).fill(0).map((_, i) => {
+              const c1 = hexToRgb(color1);
+              const c2 = hexToRgb(color2);
+              const mixed = rgbToHex(rgbMix(c1, c2, 0.1 * i));
+              return (
+                <div
+                  key={i}
+                  style={{
+                    width: "100px",
+                    height: "20px",
+                    backgroundColor: mixed,
+                    textShadow: "0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white",
+                    lineHeight: "20px",
+                  }}
+                >
+                  {mixed}
+                </div>
+              );
+            })}
+          </div>
+        </div> */}
         <div>
-          {new Array(10).fill(0).map((_, i) => {
-            const c1 = hexToRgb(color1);
-            const c2 = hexToRgb(color2);
-            const mixed = rgbToHex(rgbMix(c1, c2, 0.1 * i));
-            return (
-              <div
-                key={i}
-                style={{
-                  width: "200px",
-                  height: "60px",
-                  backgroundColor: mixed,
-                  textShadow: "0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white",
-                  lineHeight: "60px",
-                }}
-              >
-                {mixed}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <div>
-        <h2>MixBox</h2>
-        <div>
-          {new Array(10).fill(0).map((_, i) => {
-            const c1 = hexToRgb(color1);
-            const c2 = hexToRgb(color2);
-            const mixed = rgbToHex(mixbox_lerp_srgb8(c_table, c1, c2, 0.1 * i));
-            return (
-              <div
-                key={i}
-                style={{
-                  width: "200px",
-                  height: "60px",
-                  backgroundColor: mixed,
-                  textShadow: "0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white",
-                  lineHeight: "60px",
-                }}
-              >
-                {mixed}
-              </div>
-            );
-          })}
+          <h2>MixBox</h2>
+          <div>
+            {new Array(10).fill(0).map((_, i) => {
+              const c1 = hexToRgb(color1);
+              const c2 = hexToRgb(color2);
+              const mixed = rgbToHex(mixbox_lerp_srgb8(c_table, c1, c2, 0.1 * i));
+              return (
+                <div
+                  key={i}
+                  style={{
+                    width: "160px",
+                    height: "20px",
+                    backgroundColor: mixed,
+                    textShadow: "0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white",
+                    lineHeight: "20px",
+                  }}
+                >
+                  {mixed}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
       <div
         style={{
-          padding: "100px",
+          padding: "0px",
           display: "flex",
-          gap: "50px",
+          gap: "8px",
           flexDirection: "column",
           justifyContent: "space-between",
         }}
